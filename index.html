@@ -3,128 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Himanshu Smart AI</title>
+<title>Himanshu Voice AI</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #efeae2;
+body{
+  margin:0;
+  font-family:Arial;
+  background:#efeae2;
 }
-.header {
-  background: #075e54;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
+.header{
+  background:#075e54;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:18px;
 }
-.chat-box {
-  height: 70vh;
-  overflow-y: auto;
-  padding: 10px;
+.chat{
+  height:70vh;
+  overflow-y:auto;
+  padding:10px;
 }
-.msg {
-  max-width: 75%;
-  padding: 10px;
-  margin: 8px;
-  border-radius: 10px;
+.msg{
+  max-width:75%;
+  padding:10px;
+  margin:8px;
+  border-radius:10px;
 }
-.user { background: #dcf8c6; margin-left: auto; }
-.bot { background: #fff; margin-right: auto; }
+.user{background:#dcf8c6;margin-left:auto;}
+.bot{background:#fff;margin-right:auto;}
 
-.input-box {
-  display: flex;
-  padding: 10px;
-  background: #fff;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+.input-box{
+  display:flex;
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#fff;
+  padding:10px;
 }
-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+input{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
 }
-button {
-  margin-left: 8px;
-  padding: 10px 15px;
-  border-radius: 50%;
-  border: none;
-  background: #075e54;
-  color: white;
+button{
+  margin-left:6px;
+  padding:10px;
+  border:none;
+  border-radius:50%;
+  background:#075e54;
+  color:white;
+  font-size:16px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">🤖 Himanshu Smart AI</div>
+<div class="header">🎤 Himanshu Voice AI</div>
 
-<div class="chat-box" id="chat">
-  <div class="msg bot">नमस्ते 👋 / Hello 👋</div>
+<div class="chat" id="chat">
+  <div class="msg bot">नमस्ते 👋 बोलिए, मैं सुन रहा हूँ</div>
 </div>
 
 <div class="input-box">
-  <input type="text" id="userInput" placeholder="Type in Hindi or English...">
+  <input id="userInput" placeholder="Type or Speak...">
+  <button onclick="startVoice()">🎤</button>
   <button onclick="send()">➤</button>
-  <button onclick="online()">🌐</button>
 </div>
 
 <script>
-let memory = { name: "", study: "" };
+let memory = {name:"",study:""};
 
-function isEnglish(text) {
+function speak(text){
+  let speech = new SpeechSynthesisUtterance(text);
+  speech.lang = /[a-zA-Z]/.test(text) ? "en-US" : "hi-IN";
+  window.speechSynthesis.speak(speech);
+}
+
+function isEnglish(text){
   return /^[a-zA-Z0-9\s?.!]+$/.test(text);
 }
 
-function send() {
+function send(){
   let input = document.getElementById("userInput");
   let text = input.value.trim();
-  if (text === "") return;
+  if(text==="") return;
 
   let chat = document.getElementById("chat");
   chat.innerHTML += `<div class="msg user">${text}</div>`;
-  input.value = "";
+  input.value="";
 
-  setTimeout(() => {
-    let reply = "";
+  setTimeout(()=>{
     let en = isEnglish(text.toLowerCase());
+    let reply="";
 
-    if (text.toLowerCase().includes("my name is")) {
-      memory.name = text.replace(/my name is/i, "").trim();
-      reply = en ? `Nice name 😊 ${memory.name}` : `अच्छा नाम है 😊 ${memory.name}`;
+    if(text.toLowerCase().includes("my name is")){
+      memory.name=text.replace(/my name is/i,"").trim();
+      reply=en?`Nice name ${memory.name}`:`अच्छा नाम है ${memory.name}`;
     }
-    else if (text.toLowerCase().includes("i study")) {
-      memory.study = text.replace(/i study/i, "").trim();
-      reply = en ? `Great 👍 You study ${memory.study}` : `वाह 👍 तुम ${memory.study} पढ़ते हो`;
+    else if(text.toLowerCase().includes("i study")){
+      memory.study=text.replace(/i study/i,"").trim();
+      reply=en?`You study ${memory.study}`:`तुम ${memory.study} पढ़ते हो`;
     }
-    else if (text.toLowerCase().includes("what is my name")) {
-      reply = memory.name
-        ? (en ? `Your name is ${memory.name}` : `तुम्हारा नाम ${memory.name} है`)
-        : (en ? `You didn't tell me your name` : `तुमने नाम नहीं बताया`);
+    else if(text.toLowerCase().includes("what is my name")){
+      reply=memory.name? (en?`Your name is ${memory.name}`:`तुम्हारा नाम ${memory.name} है`) : (en?"You didn't tell me":"तुमने नाम नहीं बताया");
     }
-    else if (text.toLowerCase().includes("hello") || text.includes("नमस्ते")) {
-      reply = en ? "Hello 👋 How can I help you?" : "नमस्ते 👋 मैं आपकी कैसे मदद करूँ?";
+    else if(text.includes("नमस्ते") || text.toLowerCase().includes("hello")){
+      reply=en?"Hello 👋 How can I help you?":"नमस्ते 👋 मैं आपकी मदद करूँ?";
     }
-    else {
-      reply = en ? "I am learning 😊" : "मैं सीख रहा हूँ 😊";
+    else{
+      reply=en?"I am learning 😊":"मैं सीख रहा हूँ 😊";
     }
 
     chat.innerHTML += `<div class="msg bot">${reply}</div>`;
-    chat.scrollTop = chat.scrollHeight;
-  }, 600);
+    speak(reply);
+    chat.scrollTop=chat.scrollHeight;
+  },600);
 }
 
-async function online() {
-  let chat = document.getElementById("chat");
-  chat.innerHTML += `<div class="msg user">Online Quote</div>`;
+function startVoice(){
+  let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recog = new SpeechRecognition();
+  recog.lang = "hi-IN";
+  recog.start();
 
-  let res = await fetch("https://api.quotable.io/random");
-  let data = await res.json();
-
-  chat.innerHTML += `<div class="msg bot">🌐 "${data.content}"</div>`;
-  chat.scrollTop = chat.scrollHeight;
+  recog.onresult = function(e){
+    document.getElementById("userInput").value = e.results[0][0].transcript;
+    send();
+  }
 }
 </script>
 
