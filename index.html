@@ -2,23 +2,60 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>Himanshu Internet AI</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Himanshu AI</title>
+
+  <style>
+    body {
+      background: #0f172a;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #020617;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    #reply {
+      min-height: 60px;
+      margin: 15px 0;
+      padding: 10px;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #38bdf8;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-  <div class="header">🌐 Himanshu Internet AI</div>
+  <div class="box">
+    <h2>🤖 Himanshu AI</h2>
 
-  <div class="chat" id="chat">
-    <div class="msg bot">नमस्ते 👋 मैं Internet से जुड़ा AI हूँ</div>
+    <div id="reply">यहाँ जवाब आएगा...</div>
+
+    <button onclick="askAI()">Ask AI</button>
   </div>
 
-  <div class="input-box">
-    <input id="userInput" type="text" placeholder="अपना सवाल लिखो..." />
-    <button onclick="send()">➤</button>
-  </div>
-
+  <!-- JS हमेशा नीचे ही रहेगा -->
   <script src="script.js"></script>
+
 </body>
 </html>
