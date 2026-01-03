@@ -1,131 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-  <title>Himanshu | My Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu AI</title>
 
-  <style>
-    .profile {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-  border: 3px solid #3498db;
-  object-fit: cover;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-    }
-    body {
-      background-color: #eef2f3;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      max-width: 420px;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-    }
-
-    h1 {
-      color: #2c3e50;
-    }
-
-    h2 {
-      color: #3498db;
-    }
-
-    p {
-      color: #555;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    button {
-      background-color: #27ae60;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-
-    button:hover {
-      background-color: #1e8449;
-    }
-  </style>
-
-  <script>
-    function contactMe() {
-      alert("📧 Contact me soon! Website under progress 😄");
-    }
-  </script>
-</head>
-<script>
-function talk() {
-  let user = document.getElementById("userInput").value.toLowerCase();
-  let reply = document.getElementById("reply");
-
-  if (user.includes("hello") || user.includes("hi")) {
-    reply.innerText = "Hello Himanshu 👋 Kaise ho?";
-  }
-
-  else if (user.includes("madhav")) {
-    reply.innerText = "Mera naam Madhav hai 🤖";
-  }
-
-  else if (user.includes("time")) {
-    let time = new Date().toLocaleTimeString();
-    reply.innerText = "⏰ Abhi time hai: " + time;
-  }
-
-  else if (user.includes("date")) {
-    let date = new Date().toLocaleDateString();
-    reply.innerText = "📅 Aaj ki date hai: " + date;
-  }
-
-  else if (user.includes("study")) {
-    reply.innerText = "Roz thoda-thoda padhna hi success ki key hai 📚🔥";
-  }
-
-  else if (user.includes("who are you")) {
-    reply.innerText = "Main Himanshu ke dwara banaya gaya AI hoon 😎";
-  }
-
-  else {
-    reply.innerText = "🤔 Ye mujhe abhi nahi aata, par main seekh raha hoon!";
-  }
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#ece5dd;
 }
-</script>
-  </script>
+
+.header{
+  background:#075e54;
+  color:white;
+  padding:12px;
+  text-align:center;
+  font-size:20px;
+}
+
+.chat-box{
+  height:75vh;
+  padding:10px;
+  overflow-y:auto;
+}
+
+.msg{
+  max-width:70%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.user{
+  background:#dcf8c6;
+  margin-left:auto;
+  border-bottom-right-radius:0;
+}
+
+.bot{
+  background:white;
+  margin-right:auto;
+  border-bottom-left-radius:0;
+}
+
+.input-box{
+  display:flex;
+  padding:10px;
+  background:#f0f0f0;
+}
+
+input{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  outline:none;
+}
+
+button{
+  margin-left:8px;
+  padding:10px 15px;
+  border:none;
+  border-radius:50%;
+  background:#075e54;
+  color:white;
+  font-size:16px;
+}
+</style>
+</head>
 
 <body>
 
-    <div class="chatbox">
-  <h3>🤖 AI Assistant</h3>
+<div class="header">🤖 Himanshu AI</div>
 
-  <input type="text" id="userInput" placeholder="Ask me something..." />
-  <button onclick="talk()">Send</button>
+<div class="chat-box" id="chat">
+  <div class="msg bot">Hello Himanshu 👋 Main tumhara AI hoon</div>
+</div>
 
-  <p id="reply"></p>
-    </div>
-<img src="profile.jpg" alt="My Photo" class="profile">
-    <h1>Hello 👋</h1>
-    <h2>I am Himanshu</h2>
+<div class="input-box">
+  <input type="text" id="userInput" placeholder="Message likho...">
+  <button onclick="send()">➤</button>
+</div>
 
-    <p>
-      I am a student and I am learning web development using my mobile phone.
-      This is my first personal website created with HTML, CSS and JavaScript.
-    </p>
+<script>
+function send(){
+  let input = document.getElementById("userInput");
+  let text = input.value.toLowerCase();
+  if(text==="") return;
 
-    <button onclick="contactMe(6388295062)">Contact Me</button>
-  </div>
+  let chat = document.getElementById("chat");
+
+  chat.innerHTML += `<div class="msg user">${text}</div>`;
+  input.value = "";
+
+  setTimeout(()=>{
+    let reply = "🤔 Main abhi seekh raha hoon";
+
+    if(text.includes("hello") || text.includes("hi"))
+      reply = "Hello 👋 Kaise ho?";
+
+    else if(text.includes("time"))
+      reply = "⏰ Time: " + new Date().toLocaleTimeString();
+
+    else if(text.includes("date"))
+      reply = "📅 Date: " + new Date().toLocaleDateString();
+
+    else if(text.includes("name"))
+      reply = "Mera naam Himanshu AI hai 🤖";
+
+    else if(text.includes("study"))
+      reply = "Roz padhna = success 📚🔥";
+
+    chat.innerHTML += `<div class="msg bot">${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  },600);
+}
+</script>
 
 </body>
 </html>
