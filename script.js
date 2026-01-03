@@ -1,4 +1,4 @@
-const API_KEY = "PASTE_YOUR_GROQ_API_KEY_HERE";
+const API_KEY = "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";
 
 async function send() {
   let input = document.getElementById("userInput");
