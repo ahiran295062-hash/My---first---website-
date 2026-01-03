@@ -118,6 +118,15 @@ function send(){
   },600);
 }
 </script>
+async function askAI() {
+  let res = await fetch("https://api.quotable.io/random");
+  let data = await res.json();
+  document.getElementById("reply").innerText = data.content;
+}
+</script>
+
+<button onclick="askAI()">Ask AI</button>
+<p id="reply"></p>
 
 </body>
 </html>
